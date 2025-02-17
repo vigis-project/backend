@@ -1,10 +1,8 @@
-version: '3.8'
-
 services:
   nest-app:
     container_name: nest-app
     env_file:
-      - path: ./.development.env
+      - ./.development.env
     build: .
     ports:
       - "3000:3000"
@@ -22,7 +20,7 @@ services:
   postgres:
     container_name: postgres
     env_file:
-      - path: ./.development.env
+      - ./.development.env
     image: postgres:latest
     environment:
       - POSTGRES_USER=${DATABASE_USER}
