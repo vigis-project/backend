@@ -9,6 +9,7 @@ import { RolesModule } from './roles/roles.module';
 import { Role } from './roles/roles.model';
 import { UserRoles } from './roles/user-roles.model';
 import { AuthModule } from './auth/auth.module';
+import { Sequelize } from 'sequelize-typescript';
 
 @Module({
 	controllers: [AppController],
@@ -26,11 +27,19 @@ import { AuthModule } from './auth/auth.module';
 			password: process.env.DATABASE_PASSWORD,
 			database: process.env.DATABASE_NAME,
 			models: [User, Role, UserRoles],
-			autoLoadModels: true
+			autoLoadModels: true,
+			synchronize: true,
 		}
 	),
 		UsersModule,
 		RolesModule,
 		AuthModule],
 })
-export class AppModule {}
+
+export class AppModule {
+	constructor(private sequelize: Sequelize) {}
+
+	async onModuleInit() {
+		await this.sequelize.sync({ alter: true });
+	}
+}
