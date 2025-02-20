@@ -8,7 +8,24 @@
 $ docker compose --env-file .development.env up --build
 ```
 
-## Description
+## ВАЖНО! Применить миграции чтобы создать роли USER и ADMIN
+Зайти в контейнер
+```bash
+$ docker exec -it nest-app bash
+```
+Применить миграции
+```bash
+$ npx sequelize-cli db:migrate
+```
+# Откатить миграции
+Откатить последнюю миграцию
+```bash
+$ npx sequelize-cli db:migrate:undo
+```
+Откатить все миграции
+```bash
+$ npx sequelize-cli db:migrate:undo:all
+```
 
 [Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
 

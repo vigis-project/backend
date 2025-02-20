@@ -1,0 +1,26 @@
+{
+  "development": {
+    "username": "developer",
+    "password": "developer_password",
+    "database": "vigis",
+    "host": "postgres",
+    "dialect": "postgres",
+    "port": 5432
+  },
+  "test": {
+    "username": "developer",
+    "password": "developer_password",
+    "database": "vigis_test",
+    "host": "postgres",
+    "dialect": "postgres",
+    "port": 5432
+  },
+  "production": {
+    "username": "developer",
+    "password": "developer_password",
+    "database": "vigis_prod",
+    "host": "postgres",
+    "dialect": "postgres",
+    "port": 5432
+  }
+}
