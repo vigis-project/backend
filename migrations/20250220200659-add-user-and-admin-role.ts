@@ -12,6 +12,12 @@ module.exports = {
         description: 'Роль администратора с полным доступом',
         createdAt: new Date(),
         updatedAt: new Date(),
+      },
+      {
+        value: 'STAFF',
+        description: 'Роль сотрудника',
+        createdAt: new Date(),
+        updatedAt: new Date(),
       }
     ], {});
   },
