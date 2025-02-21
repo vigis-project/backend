@@ -8,7 +8,7 @@
 $ docker compose --env-file .development.env up --build
 ```
 
-## ВАЖНО! Применить миграции чтобы создать роли USER и ADMIN
+# ВАЖНО! Применить миграции чтобы создать роли USER, ADMIN и STAFF
 Зайти в контейнер
 ```bash
 $ docker exec -it nest-app bash

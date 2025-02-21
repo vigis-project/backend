@@ -4,7 +4,11 @@ import { UserRoles } from "src/roles/user-roles.model";
 
 interface UserCreationAttrs {
     email: string;
+    username: string;
     password: string;
+    firstName: string;
+    lastName: string;
+    secondName: string;
 }
 
 @Table({tableName: 'users'})
@@ -18,7 +22,7 @@ export class User extends Model<User, UserCreationAttrs> {
 
     @Unique
     @AllowNull(false)
-    @Column({ type: DataType.STRING(15) })
+    @Column({ type: DataType.STRING(50) })
     email: string;
 
     @Unique
@@ -27,7 +31,7 @@ export class User extends Model<User, UserCreationAttrs> {
     username: string;
 
     @AllowNull(false)
-    @Column({ type: DataType.STRING(15) })
+    @Column({ type: DataType.STRING })
     password: string;
 
     @AllowNull(false)
