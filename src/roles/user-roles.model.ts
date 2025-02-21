@@ -1,5 +1,5 @@
 import {AutoIncrement, Column, DataType, ForeignKey, Model, PrimaryKey, Table, Unique} from "sequelize-typescript";
-import {User} from "../users/users.model";
+import {User} from "../users/models/users.model";
 import {Role} from "./roles.model";
 
 
