@@ -21,9 +21,33 @@ export class User extends Model<User, UserCreationAttrs> {
     @Column({ type: DataType.STRING })
     email: string;
 
+    @Unique
+    @AllowNull(false)
+    @Column({ type: DataType.STRING })
+    username: string;
+
     @AllowNull(false)
     @Column({ type: DataType.STRING })
     password: string;
+
+    @AllowNull(false)
+    @Column({ type: DataType.STRING })
+    firstName: string;
+
+    @AllowNull(false)
+    @Column({ type: DataType.STRING })
+    lastName: string;
+
+    @AllowNull(false)
+    @Column({ type: DataType.STRING })
+    secondName: string;
+
+    @Column({type: DataType.INTEGER})
+    rating: number
+
+    @Default(false)
+    @Column({type: DataType.BOOLEAN})
+    enabled: boolean;
 
     @Default(false)
     @Column({ type: DataType.BOOLEAN })
