@@ -23,13 +23,19 @@
     "@nestjs/common": "^11.0.1",
     "@nestjs/config": "^4.0.0",
     "@nestjs/core": "^11.0.1",
+    "@nestjs/jwt": "^11.0.0",
+    "@nestjs/mapped-types": "*",
     "@nestjs/platform-express": "^11.0.1",
     "@nestjs/sequelize": "^11.0.0",
     "@sequelize/postgres": "7.0.0-alpha.45",
     "@types/sequelize": "^4.28.20",
+    "bcrypt": "^5.1.1",
+    "bcryptjs": "^3.0.2",
     "cross-env": "^7.0.3",
     "reflect-metadata": "^0.2.2",
-    "rxjs": "^7.8.1"
+    "rxjs": "^7.8.1",
+    "sequelize-cli": "^6.6.2",
+    "sequelize-typescript": "^2.1.6"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3.2.0",

@@ -3,6 +3,13 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { SequelizeModule } from '@nestjs/sequelize';
 import { ConfigModule } from '@nestjs/config';
+import { UsersModule } from './users/users.module';
+import { User } from './users/users.model';
+import { RolesModule } from './roles/roles.module';
+import { Role } from './roles/roles.model';
+import { UserRoles } from './roles/user-roles.model';
+import { AuthModule } from './auth/auth.module';
+import { Sequelize } from 'sequelize-typescript';
 
 @Module({
 	controllers: [AppController],
@@ -19,9 +26,20 @@ import { ConfigModule } from '@nestjs/config';
 			username: process.env.DATABASE_USER,
 			password: process.env.DATABASE_PASSWORD,
 			database: process.env.DATABASE_NAME,
-			models: [],
-			autoLoadModels: true
+			models: [User, Role, UserRoles],
+			autoLoadModels: true,
+			synchronize: true,
 		}
-	)],
+	),
+		UsersModule,
+		RolesModule,
+		AuthModule],
 })
-export class AppModule {}
+
+export class AppModule {
+	constructor(private sequelize: Sequelize) {}
+
+	async onModuleInit() {
+		await this.sequelize.sync({ alter: true });
+	}
+}
