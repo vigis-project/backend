@@ -13,6 +13,8 @@ import { Sequelize } from 'sequelize-typescript';
 import { BooksModule } from './books/books.module';
 import { Book } from './books/models/books.model';
 import { BookReview } from './books/models/book-review.models';
+import { AutorsModule } from './autors/autors.module';
+import { Autor } from './autors/models/autors.model';
 
 @Module({
 	controllers: [AppController],
@@ -28,14 +30,15 @@ import { BookReview } from './books/models/book-review.models';
 			username: process.env.DATABASE_USER,
 			password: process.env.DATABASE_PASSWORD,
 			database: process.env.DATABASE_NAME,
-			models: [User, Role, UserRoles, Book, BookReview],
+			models: [User, Role, UserRoles, Book, BookReview, Autor],
 			autoLoadModels: true,
 			synchronize: true
 		}),
 		UsersModule,
 		RolesModule,
 		AuthModule,
-		BooksModule
+		BooksModule,
+		AutorsModule
 	]
 })
 export class AppModule {
