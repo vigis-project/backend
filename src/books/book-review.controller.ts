@@ -30,16 +30,6 @@ export class BookReviewController {
 		return this.reviewService.getAllReviews();
 	}
 
-	@Get('/book/:bookId')
-	findByBook(@Param('bookId') bookId: string) {
-		return this.reviewService.getReviewsByBookId(+bookId);
-	}
-
-	@Get('/user/:userId')
-	findByUser(@Param('userId') userId: string) {
-		return this.reviewService.getReviewsByUserId(+userId);
-	}
-
 	@Patch(':id')
 	updateReview(
 		@Param('id') id: string,

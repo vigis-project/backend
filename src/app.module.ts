@@ -13,8 +13,8 @@ import { Sequelize } from 'sequelize-typescript';
 import { BooksModule } from './books/books.module';
 import { Book } from './books/models/books.model';
 import { BookReview } from './books/models/book-review.models';
-import { AutorsModule } from './autors/autors.module';
-import { Autor } from './autors/models/autors.model';
+import { AuthorsModule } from './authors/authors.module';
+import { Author } from './authors/models/authors.model';
 import { UserAddress } from './users/models/user-address.model';
 
 @Module({
@@ -31,7 +31,7 @@ import { UserAddress } from './users/models/user-address.model';
 			username: process.env.DATABASE_USER,
 			password: process.env.DATABASE_PASSWORD,
 			database: process.env.DATABASE_NAME,
-			models: [User, Role, UserRoles, Book, BookReview, Autor, UserAddress],
+			models: [User, Role, UserRoles, Book, BookReview, Author, UserAddress],
 			autoLoadModels: true,
 			synchronize: true
 		}),
@@ -39,7 +39,7 @@ import { UserAddress } from './users/models/user-address.model';
 		RolesModule,
 		AuthModule,
 		BooksModule,
-		AutorsModule
+		AuthorsModule
 	]
 })
 export class AppModule {

@@ -3,30 +3,30 @@ import { Book } from './models/books.model';
 import { InjectModel } from '@nestjs/sequelize';
 import { CreateBookDto } from './dto/create-book.dto';
 import { UpdateBookDto } from './dto/update-book.dto';
-import { Autor } from 'src/autors/models/autors.model';
-import { AutorsService } from 'src/autors/autors.service';
+import { Author } from 'src/authors/models/authors.model';
+import { AuthorsService } from 'src/authors/authors.service';
 
 @Injectable()
 export class BooksService {
 	constructor(
 		@InjectModel(Book) private bookRepository: typeof Book,
-		private readonly autorService: AutorsService
+		private readonly authorService: AuthorsService
 	) {}
 
 	async createBook(dto: CreateBookDto) {
-		const autor = await this.autorService.getAutorById(dto.autorId);
+		const author = await this.authorService.getAuthorById(dto.authorId);
 
-		if (autor) {
+		if (author) {
 			const book = await this.bookRepository.create({
 				bookName: dto.bookName,
 				note: dto.note,
-				autorId: autor.id
+				authorId: author.id
 			});
 
 			return book;
 		}
 
-		throw new NotFoundException(`Автор с id ${dto.autorId} не найден.`);
+		throw new NotFoundException(`Автор с id ${dto.authorId} не найден.`);
 	}
 
 	async getAllBooks() {

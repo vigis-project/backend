@@ -11,13 +11,15 @@ import {
 } from 'sequelize-typescript';
 import { Book } from 'src/books/models/books.model';
 
-interface AutorCreationAttrs {
+interface AuthorCreationAttrs {
 	firstName: string;
 	lastName: string;
 }
 
-@Table({ tableName: 'autors' })
-export class Autor extends Model<Autor, AutorCreationAttrs> {
+@Table({ tableName: 'authors' })
+export class Author extends Model<Author, AuthorCreationAttrs> {
+	
+	@Unique
 	@PrimaryKey
 	@AutoIncrement
 	@Column({ type: DataType.INTEGER })
