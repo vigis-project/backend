@@ -1,19 +1,33 @@
-import { AllowNull, AutoIncrement, BelongsToMany, Column, DataType, Default, Model, PrimaryKey, Table, Unique } from "sequelize-typescript";
-import { Role } from "src/roles/roles.model";
-import { UserRoles } from "src/roles/user-roles.model";
+import {
+	AllowNull,
+	AutoIncrement,
+	BelongsToMany,
+	Column,
+	DataType,
+	Default,
+	HasMany,
+	HasOne,
+	Model,
+	PrimaryKey,
+	Table,
+	Unique
+} from 'sequelize-typescript';
+import { Role } from 'src/roles/roles.model';
+import { UserRoles } from 'src/roles/user-roles.model';
+import { BookReview } from 'src/books/models/book-review.models';
+import { UserAddress } from "./user-address.model";
 
 interface UserCreationAttrs {
-    email: string;
-    username: string;
-    password: string;
-    firstName: string;
-    lastName: string;
-    secondName: string;
+	email: string;
+	username: string;
+	password: string;
+	firstName: string;
+	lastName: string;
+	secondName: string;
 }
 
-@Table({tableName: 'users'})
-export class User extends Model<User, UserCreationAttrs> {
-    
+@Table({ tableName: 'users' })
+export class User extends Model<User, UserCreationAttrs> {    
     @Unique
     @PrimaryKey
     @AutoIncrement
@@ -59,4 +73,11 @@ export class User extends Model<User, UserCreationAttrs> {
 
     @BelongsToMany(() => Role, () => UserRoles)
     roles: Role[];
+
+    @HasMany(() => BookReview)
+	  reviews: BookReview[];
+
+    @HasOne(() => UserAddress)
+    address: UserAddress;
+    user: import("../types/user-address-creation-attrs.interface").UserAddressCreationAttrs;
 }

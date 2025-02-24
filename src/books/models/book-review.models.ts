@@ -20,8 +20,9 @@ interface BookReviewCreationAttrs {
 	userId: number;
 }
 
-@Table({ tableName: 'book_reviews' })
-export class BookReview extends Model<BookReview, BookReviewCreationAttrs> {
+@Table({ tableName: 'book_review' })
+export class BookReview extends Model<Book, BookReviewCreationAttrs> {
+
 	@Unique
 	@PrimaryKey
 	@AutoIncrement
@@ -47,6 +48,15 @@ export class BookReview extends Model<BookReview, BookReviewCreationAttrs> {
 	review: string;
 
 	@AllowNull(false)
+	idBook: number;
+
+	@ForeignKey(() => User)
+	@Column({ type: DataType.INTEGER })
+	idUser: number;
+
+	@Column({ type: DataType.STRING(500) })
+	response: string;
+
 	@Column({ type: DataType.STRING(50) })
 	note: string;
 }

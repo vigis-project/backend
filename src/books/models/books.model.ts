@@ -15,6 +15,7 @@ import {
 import { BookReview } from './book-review.models';
 import { Autor } from 'src/autors/models/autors.model';
 
+
 interface BookCreationAttrs {
 	bookName: string;
 	note: string;
@@ -29,10 +30,12 @@ export class Book extends Model<Book, BookCreationAttrs> {
 	@Column({ type: DataType.INTEGER })
 	id: number;
 
+	@Unique
 	@AllowNull(false)
 	@Column({ type: DataType.STRING(50) })
 	bookName: string;
 
+	@Unique
 	@AllowNull(false)
 	@Column({ type: DataType.STRING(50) })
 	note: string;
@@ -50,4 +53,11 @@ export class Book extends Model<Book, BookCreationAttrs> {
 
 	@BelongsTo(() => Autor)
 	autor: Autor;
+  
+	@Column({ type: DataType.INTEGER })
+	rating: number;
+
+	@HasMany(() => BookReview)
+	responese: BookReview;
+
 }

@@ -23,5 +23,6 @@ import { AutorsModule } from 'src/autors/autors.module';
 	],
 
 	exports: [BooksService, BookReviewService]
+
 })
 export class BooksModule {}
