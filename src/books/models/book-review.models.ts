@@ -1,6 +1,7 @@
 import {
 	AllowNull,
 	AutoIncrement,
+	BelongsTo,
 	Column,
 	DataType,
 	ForeignKey,
@@ -13,13 +14,15 @@ import { Book } from './books.model';
 import { User } from 'src/users/models/users.model';
 
 interface BookReviewCreationAttrs {
-	createAt: string;
-	response: string;
+	review: string;
 	note: string;
+	bookId: number;
+	userId: number;
 }
 
 @Table({ tableName: 'book_review' })
 export class BookReview extends Model<Book, BookReviewCreationAttrs> {
+
 	@Unique
 	@PrimaryKey
 	@AutoIncrement
@@ -28,6 +31,23 @@ export class BookReview extends Model<Book, BookReviewCreationAttrs> {
 
 	@ForeignKey(() => Book)
 	@Column({ type: DataType.INTEGER })
+	bookId: number;
+
+	@BelongsTo(() => Book)
+	book: Book;
+
+	@ForeignKey(() => User)
+	@Column({ type: DataType.INTEGER })
+	userId: number;
+
+	@BelongsTo(() => User)
+	user: User;
+
+	@AllowNull(false)
+	@Column({ type: DataType.STRING(500) })
+	review: string;
+
+	@AllowNull(false)
 	idBook: number;
 
 	@ForeignKey(() => User)
