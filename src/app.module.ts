@@ -10,6 +10,7 @@ import { Role } from './roles/roles.model';
 import { UserRoles } from './roles/user-roles.model';
 import { AuthModule } from './auth/auth.module';
 import { Sequelize } from 'sequelize-typescript';
+import { UserAddress } from './users/models/user-address.model';
 
 @Module({
 	controllers: [AppController],
@@ -26,7 +27,7 @@ import { Sequelize } from 'sequelize-typescript';
 			username: process.env.DATABASE_USER,
 			password: process.env.DATABASE_PASSWORD,
 			database: process.env.DATABASE_NAME,
-			models: [User, Role, UserRoles],
+			models: [User, Role, UserRoles, UserAddress],
 			autoLoadModels: true,
 			synchronize: true,
 		}
