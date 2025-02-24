@@ -15,6 +15,7 @@ import { Book } from './books/models/books.model';
 import { BookReview } from './books/models/book-review.models';
 import { AutorsModule } from './autors/autors.module';
 import { Autor } from './autors/models/autors.model';
+import { UserAddress } from './users/models/user-address.model';
 
 @Module({
 	controllers: [AppController],
@@ -30,7 +31,7 @@ import { Autor } from './autors/models/autors.model';
 			username: process.env.DATABASE_USER,
 			password: process.env.DATABASE_PASSWORD,
 			database: process.env.DATABASE_NAME,
-			models: [User, Role, UserRoles, Book, BookReview, Autor],
+			models: [User, Role, UserRoles, Book, BookReview, Autor, UserAddress],
 			autoLoadModels: true,
 			synchronize: true
 		}),
