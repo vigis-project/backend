@@ -13,13 +13,13 @@ import {
 	Unique
 } from 'sequelize-typescript';
 import { BookReview } from './book-review.models';
-import { Autor } from 'src/autors/models/autors.model';
+import { Author } from 'src/authors/models/authors.model';
 
 
 interface BookCreationAttrs {
 	bookName: string;
 	note: string;
-	autorId: number;
+	authorId: number;
 }
 
 @Table({ tableName: 'books' })
@@ -47,15 +47,12 @@ export class Book extends Model<Book, BookCreationAttrs> {
 	@HasMany(() => BookReview)
 	reviews: BookReview[];
 
-	@ForeignKey(() => Autor)
+	@ForeignKey(() => Author)
 	@Column({ type: DataType.INTEGER, allowNull: false })
-	autorId: number;
+	authorId: number;
 
-	@BelongsTo(() => Autor)
-	autor: Autor;
-  
-	@Column({ type: DataType.INTEGER })
-	rating: number;
+	@BelongsTo(() => Author)
+	author: Author;
 
 	@HasMany(() => BookReview)
 	responese: BookReview;

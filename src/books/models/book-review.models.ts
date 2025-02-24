@@ -6,6 +6,7 @@ import {
 	DataType,
 	ForeignKey,
 	Model,
+	NotNull,
 	PrimaryKey,
 	Table,
 	Unique
@@ -20,7 +21,7 @@ interface BookReviewCreationAttrs {
 	userId: number;
 }
 
-@Table({ tableName: 'book_review' })
+@Table({ tableName: 'book_reviews' })
 export class BookReview extends Model<Book, BookReviewCreationAttrs> {
 
 	@Unique
@@ -28,7 +29,8 @@ export class BookReview extends Model<Book, BookReviewCreationAttrs> {
 	@AutoIncrement
 	@Column({ type: DataType.INTEGER })
 	id: number;
-
+	
+	@AllowNull(false)
 	@ForeignKey(() => Book)
 	@Column({ type: DataType.INTEGER })
 	bookId: number;
@@ -36,6 +38,7 @@ export class BookReview extends Model<Book, BookReviewCreationAttrs> {
 	@BelongsTo(() => Book)
 	book: Book;
 
+	@AllowNull(false)
 	@ForeignKey(() => User)
 	@Column({ type: DataType.INTEGER })
 	userId: number;
@@ -46,16 +49,6 @@ export class BookReview extends Model<Book, BookReviewCreationAttrs> {
 	@AllowNull(false)
 	@Column({ type: DataType.STRING(500) })
 	review: string;
-
-	@AllowNull(false)
-	idBook: number;
-
-	@ForeignKey(() => User)
-	@Column({ type: DataType.INTEGER })
-	idUser: number;
-
-	@Column({ type: DataType.STRING(500) })
-	response: string;
 
 	@Column({ type: DataType.STRING(50) })
 	note: string;
