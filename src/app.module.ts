@@ -16,6 +16,7 @@ import { BookReview } from './books/models/book-review.models';
 import { AuthorsModule } from './authors/authors.module';
 import { Author } from './authors/models/authors.model';
 import { UserAddress } from './users/models/user-address.model';
+import { OfferListModule } from './offer-list/offer-list.module';
 
 @Module({
 	controllers: [AppController],
@@ -39,7 +40,8 @@ import { UserAddress } from './users/models/user-address.model';
 		RolesModule,
 		AuthModule,
 		BooksModule,
-		AuthorsModule
+		AuthorsModule,
+		OfferListModule
 	]
 })
 export class AppModule {
