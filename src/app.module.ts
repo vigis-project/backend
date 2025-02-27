@@ -32,7 +32,15 @@ import { OfferListModule } from './offer-list/offer-list.module';
 			username: process.env.DATABASE_USER,
 			password: process.env.DATABASE_PASSWORD,
 			database: process.env.DATABASE_NAME,
-			models: [User, Role, UserRoles, Book, BookReview, Author, UserAddress],
+			models: [
+				User,
+				Role,
+				UserRoles,
+				Book,
+				BookReview,
+				Author,
+				UserAddress
+			],
 			autoLoadModels: true,
 			synchronize: true
 		}),

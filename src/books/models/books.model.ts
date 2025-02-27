@@ -15,7 +15,6 @@ import {
 import { BookReview } from './book-review.models';
 import { Author } from 'src/authors/models/authors.model';
 
-
 interface BookCreationAttrs {
 	bookName: string;
 	note: string;
@@ -56,5 +55,4 @@ export class Book extends Model<Book, BookCreationAttrs> {
 
 	@HasMany(() => BookReview)
 	responese: BookReview;
-
 }

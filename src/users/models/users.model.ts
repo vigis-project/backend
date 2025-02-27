@@ -15,7 +15,7 @@ import {
 import { Role } from 'src/roles/roles.model';
 import { UserRoles } from 'src/roles/user-roles.model';
 import { BookReview } from 'src/books/models/book-review.models';
-import { UserAddress } from "./user-address.model";
+import { UserAddress } from './user-address.model';
 
 interface UserCreationAttrs {
 	email: string;
@@ -27,57 +27,57 @@ interface UserCreationAttrs {
 }
 
 @Table({ tableName: 'users' })
-export class User extends Model<User, UserCreationAttrs> {    
-    @Unique
-    @PrimaryKey
-    @AutoIncrement
-    @Column({type: DataType.INTEGER})
-    id: number;
+export class User extends Model<User, UserCreationAttrs> {
+	@Unique
+	@PrimaryKey
+	@AutoIncrement
+	@Column({ type: DataType.INTEGER })
+	id: number;
 
-    @Unique
-    @AllowNull(false)
-    @Column({ type: DataType.STRING(50) })
-    email: string;
+	@Unique
+	@AllowNull(false)
+	@Column({ type: DataType.STRING(50) })
+	email: string;
 
-    @Unique
-    @AllowNull(false)
-    @Column({ type: DataType.STRING(20) })
-    username: string;
+	@Unique
+	@AllowNull(false)
+	@Column({ type: DataType.STRING(20) })
+	username: string;
 
-    @AllowNull(false)
-    @Column({ type: DataType.STRING })
-    password: string;
+	@AllowNull(false)
+	@Column({ type: DataType.STRING })
+	password: string;
 
-    @AllowNull(false)
-    @Column({ type: DataType.STRING(25) })
-    firstName: string;
+	@AllowNull(false)
+	@Column({ type: DataType.STRING(25) })
+	firstName: string;
 
-    @AllowNull(false)
-    @Column({ type: DataType.STRING(50) })
-    lastName: string;
+	@AllowNull(false)
+	@Column({ type: DataType.STRING(50) })
+	lastName: string;
 
-    @AllowNull(false)
-    @Column({ type: DataType.STRING(25) })
-    secondName: string;
+	@AllowNull(false)
+	@Column({ type: DataType.STRING(25) })
+	secondName: string;
 
-    @Column({type: DataType.INTEGER})
-    rating: number;
+	@Column({ type: DataType.INTEGER })
+	rating: number;
 
-    @Default(false)
-    @Column({type: DataType.BOOLEAN})
-    enabled: boolean;
+	@Default(false)
+	@Column({ type: DataType.BOOLEAN })
+	enabled: boolean;
 
-    @Default(false)
-    @Column({ type: DataType.BOOLEAN })
-    banned: boolean;
+	@Default(false)
+	@Column({ type: DataType.BOOLEAN })
+	banned: boolean;
 
-    @BelongsToMany(() => Role, () => UserRoles)
-    roles: Role[];
+	@BelongsToMany(() => Role, () => UserRoles)
+	roles: Role[];
 
-    @HasMany(() => BookReview)
-	  reviews: BookReview[];
+	@HasMany(() => BookReview)
+	reviews: BookReview[];
 
-    @HasOne(() => UserAddress)
-    address: UserAddress;
-    user: import("../types/user-address-creation-attrs.interface").UserAddressCreationAttrs;
+	@HasOne(() => UserAddress)
+	address: UserAddress;
+	user: import('../types/user-address-creation-attrs.interface').UserAddressCreationAttrs;
 }

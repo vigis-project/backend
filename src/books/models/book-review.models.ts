@@ -23,13 +23,12 @@ interface BookReviewCreationAttrs {
 
 @Table({ tableName: 'book_reviews' })
 export class BookReview extends Model<Book, BookReviewCreationAttrs> {
-
 	@Unique
 	@PrimaryKey
 	@AutoIncrement
 	@Column({ type: DataType.INTEGER })
 	id: number;
-	
+
 	@AllowNull(false)
 	@ForeignKey(() => Book)
 	@Column({ type: DataType.INTEGER })

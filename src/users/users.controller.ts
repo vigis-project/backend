@@ -7,19 +7,17 @@ import { RolesGuard } from 'src/auth/roles.guard';
 
 @Controller('users')
 export class UsersController {
+	constructor(private userService: UsersService) {}
 
-    constructor(private userService: UsersService){}
+	@Post()
+	create(@Body() userDto: CreateUserDto) {
+		return this.userService.createUser(userDto);
+	}
 
-    @Post()
-    create(@Body() userDto: CreateUserDto){
-        return this.userService.createUser(userDto);
-    }
-
-    @Roles("ADMIN")
-    @UseGuards(RolesGuard)
-    @Get()
-    getAll() {
-        return this.userService.getAllUsers();
-    }
-
+	@Roles('ADMIN')
+	@UseGuards(RolesGuard)
+	@Get()
+	getAll() {
+		return this.userService.getAllUsers();
+	}
 }

@@ -18,7 +18,6 @@ interface AuthorCreationAttrs {
 
 @Table({ tableName: 'authors' })
 export class Author extends Model<Author, AuthorCreationAttrs> {
-	
 	@Unique
 	@PrimaryKey
 	@AutoIncrement
