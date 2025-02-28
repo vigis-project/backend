@@ -6,9 +6,7 @@ import {
 	ForeignKey,
 	BelongsTo,
 	PrimaryKey,
-	AutoIncrement,
-	CreatedAt,
-	UpdatedAt
+	AutoIncrement
 } from 'sequelize-typescript';
 import { Book } from 'src/books/models/books.model';
 import { User } from 'src/users/models/users.model';
@@ -33,26 +31,26 @@ export class OfferList extends Model<OfferList, OfferListCreationAttrs> {
 	@Column({ type: DataType.INTEGER })
 	bookId: number;
 
-	@BelongsTo(() => Book)
-	book: Book;
-
 	@ForeignKey(() => User)
 	@Column({ type: DataType.INTEGER })
 	userId: number;
-
-	@BelongsTo(() => User)
-	user: User;
 
 	@Column({ type: DataType.STRING(13), allowNull: false })
 	ISBN: string;
 
 	@Column({ type: DataType.DATE, allowNull: false })
-	yearPublishing: Date;
+	publishingYear: Date;
 
-	/*@ForeignKey(() => Status)
-	@Column({ type: DataType.INTEGER })
-	statusId: number;
+	// @ForeignKey(() => Status)
+	// @Column({ type: DataType.INTEGER })
+	// statusId: number;
 
-	@BelongsTo(() => Status)
-	status: Status;*/
+	@BelongsTo(() => Book)
+	book: Book;
+
+	@BelongsTo(() => User)
+	user: User;
+
+	// @BelongsTo(() => Status)
+	// status: Status;
 }

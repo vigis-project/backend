@@ -11,8 +11,8 @@ import {
 import { OfferListService } from './offer-list.service';
 import { CreateOfferListDto } from './dto/create-offer-list.dto';
 import { UpdateOfferListDto } from './dto/update-offer-list.dto';
-import { Roles } from 'src/auth/roles-auth.decorator';
-import { RolesGuard } from 'src/auth/roles.guard';
+import { Roles } from 'src/roles/roles-auth.decorator';
+import { RolesGuard } from 'src/roles/roles.guard';
 import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
 
 @Controller('offers')

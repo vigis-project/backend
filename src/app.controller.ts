@@ -1,6 +1,9 @@
-import { Controller, Get, UseGuards } from '@nestjs/common';
+import { Controller, Get, Req, UseGuards } from '@nestjs/common';
 import { AppService } from './app.service';
 import { JwtAuthGuard } from './auth/jwt-auth.guard';
+import { AuthRequest } from './auth/types';
+import { Roles } from './roles/roles-auth.decorator';
+import { RolesGuard } from './roles/roles.guard';
 
 @Controller()
 export class AppController {
@@ -11,9 +14,11 @@ export class AppController {
 		return 'Hello World!';
 	}
 
-	@UseGuards(JwtAuthGuard)
+	@UseGuards(JwtAuthGuard, RolesGuard)
+	@Roles('USER')
 	@Get('/date')
-	getDate() {
+	getDate(@Req() req: AuthRequest) {
+		console.log(req.user);
 		return new Date(Date.now());
 	}
 }

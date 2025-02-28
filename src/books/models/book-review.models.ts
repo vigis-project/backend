@@ -6,7 +6,6 @@ import {
 	DataType,
 	ForeignKey,
 	Model,
-	NotNull,
 	PrimaryKey,
 	Table,
 	Unique
@@ -34,16 +33,10 @@ export class BookReview extends Model<Book, BookReviewCreationAttrs> {
 	@Column({ type: DataType.INTEGER })
 	bookId: number;
 
-	@BelongsTo(() => Book)
-	book: Book;
-
 	@AllowNull(false)
 	@ForeignKey(() => User)
 	@Column({ type: DataType.INTEGER })
 	userId: number;
-
-	@BelongsTo(() => User)
-	user: User;
 
 	@AllowNull(false)
 	@Column({ type: DataType.STRING(500) })
@@ -51,4 +44,10 @@ export class BookReview extends Model<Book, BookReviewCreationAttrs> {
 
 	@Column({ type: DataType.STRING(50) })
 	note: string;
+
+	@BelongsTo(() => User)
+	user: User;
+
+	@BelongsTo(() => Book)
+	book: Book;
 }

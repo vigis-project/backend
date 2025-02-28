@@ -41,7 +41,7 @@ export class User extends Model<User, UserCreationAttrs> {
 
 	@Unique
 	@AllowNull(false)
-	@Column({ type: DataType.STRING(20) })
+	@Column({ type: DataType.STRING(25) })
 	username: string;
 
 	@AllowNull(false)
@@ -56,7 +56,7 @@ export class User extends Model<User, UserCreationAttrs> {
 	@Column({ type: DataType.STRING(50) })
 	lastName: string;
 
-	@AllowNull(false)
+	@AllowNull(true)
 	@Column({ type: DataType.STRING(25) })
 	secondName: string;
 
@@ -79,5 +79,4 @@ export class User extends Model<User, UserCreationAttrs> {
 
 	@HasOne(() => UserAddress)
 	address: UserAddress;
-	user: import('../types/user-address-creation-attrs.interface').UserAddressCreationAttrs;
 }

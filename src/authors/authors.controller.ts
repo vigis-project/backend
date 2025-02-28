@@ -11,8 +11,8 @@ import {
 import { AuthorsService } from './authors.service';
 import { CreateAuthorDto } from './dto/create-author.dto';
 import { UpdateAuthorDto } from './dto/update-author.dto';
-import { Roles } from 'src/auth/roles-auth.decorator';
-import { RolesGuard } from 'src/auth/roles.guard';
+import { Roles } from 'src/roles/roles-auth.decorator';
+import { RolesGuard } from 'src/roles/roles.guard';
 
 @Controller('authors')
 export class AuthorsController {

@@ -11,8 +11,8 @@ import {
 import { BooksService } from './books.service';
 import { CreateBookDto } from './dto/create-book.dto';
 import { UpdateBookDto } from './dto/update-book.dto';
-import { Roles } from 'src/auth/roles-auth.decorator';
-import { RolesGuard } from 'src/auth/roles.guard';
+import { Roles } from 'src/roles/roles-auth.decorator';
+import { RolesGuard } from 'src/roles/roles.guard';
 
 @Controller('books')
 export class BooksController {

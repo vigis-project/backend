@@ -11,8 +11,8 @@ import {
 import { BookReviewService } from './book-review.service';
 import { CreateBookReviewDto } from './dto/create-book-review.dto';
 import { UpdateBookReviewDto } from './dto/update-book-review.dto';
-import { Roles } from 'src/auth/roles-auth.decorator';
-import { RolesGuard } from 'src/auth/roles.guard';
+import { Roles } from 'src/roles/roles-auth.decorator';
+import { RolesGuard } from 'src/roles/roles.guard';
 
 @Controller('reviews')
 export class BookReviewController {

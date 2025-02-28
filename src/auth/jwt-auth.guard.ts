@@ -6,8 +6,7 @@ import {
 } from '@nestjs/common';
 import { Observable } from 'rxjs';
 import { JwtService } from '@nestjs/jwt';
-import { AuthRequest } from './types';
-import { User } from 'src/users/models/users.model';
+import { AuthRequest, AuthUserData } from './types';
 
 @Injectable()
 export class JwtAuthGuard implements CanActivate {
@@ -16,25 +15,32 @@ export class JwtAuthGuard implements CanActivate {
 	canActivate(
 		context: ExecutionContext
 	): boolean | Promise<boolean> | Observable<boolean> {
-		const req = context.switchToHttp().getRequest();
-		try {
-			const authHeader = req.headers.authorization;
-			const bearer = authHeader.split(' ')[0];
-			const token = authHeader.split(' ')[1];
+		const req = context.switchToHttp().getRequest<AuthRequest>();
 
-			if (bearer !== 'Bearer' || !token) {
+		try {
+			const token = this.extractTokenFromHeader(req);
+
+			if (!token) {
 				throw new UnauthorizedException({
 					message: 'Пользователь не авторизован'
 				});
 			}
 
-			const user = this.jwtService.verify(token);
+			const user = this.jwtService.verify<AuthUserData>(token);
 			req.user = user;
-			return true;
 		} catch (e) {
 			throw new UnauthorizedException({
 				message: 'Пользователь не авторизован'
 			});
 		}
+
+		return true;
+	}
+
+	private extractTokenFromHeader(request: Request): string | undefined {
+		const [type, token] =
+			request.headers['authorization']?.split(' ') ?? [];
+
+		return type === 'Bearer' ? token : undefined;
 	}
 }

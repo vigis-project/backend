@@ -52,7 +52,4 @@ export class Book extends Model<Book, BookCreationAttrs> {
 
 	@BelongsTo(() => Author)
 	author: Author;
-
-	@HasMany(() => BookReview)
-	responese: BookReview;
 }

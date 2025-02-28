@@ -5,26 +5,41 @@
 ## Run docker-compose
 
 ```bash
-$ docker compose --env-file .development.env up --build
+$ docker compose --env-file .env.development up --build
+```
+
+### Для работы PostgreSQL необходимо установить `pg` и `sequelize`:
+
+```bash
+pnpm install -g pg sequelize
 ```
 
 # ВАЖНО! Применить миграции чтобы создать роли USER, ADMIN и STAFF
+
 Зайти в контейнер
+
 ```bash
 $ docker exec -it nest-app bash
 ```
+
 Применить миграции
+
 ```bash
-$ npx sequelize-cli db:migrate
+$ sequelize db:migrate
 ```
+
 # Откатить миграции
+
 Откатить последнюю миграцию
+
 ```bash
-$ npx sequelize-cli db:migrate:undo
+$ sequelize db:migrate:undo
 ```
+
 Откатить все миграции
+
 ```bash
-$ npx sequelize-cli db:migrate:undo:all
+$ sequelize db:migrate:undo:all
 ```
 
 [Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.

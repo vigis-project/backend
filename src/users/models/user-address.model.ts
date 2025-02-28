@@ -22,7 +22,7 @@ export class UserAddress extends Model<UserAddress, UserAddressCreationAttrs> {
 	@Unique
 	@ForeignKey(() => User)
 	@Column({ type: DataType.INTEGER })
-	idUser: number;
+	userId: number;
 
 	@Column({ type: DataType.STRING(6) })
 	addrIndex: string;
@@ -36,10 +36,10 @@ export class UserAddress extends Model<UserAddress, UserAddressCreationAttrs> {
 	@Column({ type: DataType.STRING(5) })
 	addrHouse: string;
 
-	@Column({ type: DataType.STRING(10) })
+	@Column({ type: DataType.STRING(3) })
 	addrStructure: string;
 
-	@Column({ type: DataType.STRING(3) })
+	@Column({ type: DataType.STRING(5) })
 	addrApart: string;
 
 	@Column({ type: DataType.BOOLEAN })

@@ -3,7 +3,6 @@ import { Book } from './models/books.model';
 import { InjectModel } from '@nestjs/sequelize';
 import { CreateBookDto } from './dto/create-book.dto';
 import { UpdateBookDto } from './dto/update-book.dto';
-import { Author } from 'src/authors/models/authors.model';
 import { AuthorsService } from 'src/authors/authors.service';
 
 @Injectable()

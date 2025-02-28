@@ -23,7 +23,7 @@ import { OfferListModule } from './offer-list/offer-list.module';
 	providers: [AppService],
 	imports: [
 		ConfigModule.forRoot({
-			envFilePath: `.${process.env.NODE_ENV}.env`
+			envFilePath: `.env.${process.env.NODE_ENV}`
 		}),
 		SequelizeModule.forRoot({
 			dialect: 'postgres',
@@ -56,6 +56,8 @@ export class AppModule {
 	constructor(private sequelize: Sequelize) {}
 
 	async onModuleInit() {
-		await this.sequelize.sync({ alter: true });
+		await this.sequelize.sync({
+			alter: process.env.NODE_ENV === 'development' ? true : false
+		});
 	}
 }
