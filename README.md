@@ -5,7 +5,7 @@
 ## Run docker-compose
 
 ```bash
-$ docker compose --env-file .env.development up --build
+$ docker compose --env-file .development.env up --build
 ```
 
 ### Для работы PostgreSQL необходимо установить `pg` и `sequelize`:

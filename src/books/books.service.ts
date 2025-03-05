@@ -1,8 +1,8 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { Book } from './models/books.model';
 import { InjectModel } from '@nestjs/sequelize';
-import { CreateBookDto } from './dto/create-book.dto';
-import { UpdateBookDto } from './dto/update-book.dto';
+import { CreateBookDto } from './dto/request/create-book.dto';
+import { UpdateBookDto } from './dto/request/update-book.dto';
 import { AuthorsService } from 'src/authors/authors.service';
 
 @Injectable()

@@ -12,13 +12,7 @@ import {
 } from 'sequelize-typescript';
 import { Book } from './books.model';
 import { User } from 'src/users/models/users.model';
-
-interface BookReviewCreationAttrs {
-	review: string;
-	note: string;
-	bookId: number;
-	userId: number;
-}
+import { BookReviewCreationAttrs } from '../types/book-review-creation-attrs.interface';
 
 @Table({ tableName: 'book_reviews' })
 export class BookReview extends Model<Book, BookReviewCreationAttrs> {
