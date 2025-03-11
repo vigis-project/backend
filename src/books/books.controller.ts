@@ -8,7 +8,9 @@ import {
 	Delete,
 	UseGuards,
 	Query,
-	NotFoundException
+	NotFoundException,
+	BadRequestException,
+	UsePipes
 } from '@nestjs/common';
 import { BooksService } from './books.service';
 import { CreateBookDto } from './dto/request/create-book.dto';
@@ -17,7 +19,8 @@ import { Roles } from 'src/roles/roles-auth.decorator';
 import { RolesGuard } from 'src/roles/roles.guard';
 import { ApiBearerAuth, ApiOperation, ApiQuery } from '@nestjs/swagger';
 import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
-import { BookResponseDto } from './dto/response/book-response.dto';
+import { CustomZodValidationPipe } from 'src/pipes/custom-zod-validation-pipe.pipe';
+import { CreateBookSchema, UpdateBookSchema } from './schemas/book.schema';
 
 @Controller('books')
 export class BooksController {
@@ -31,6 +34,7 @@ export class BooksController {
 	})
 	@UseGuards(JwtAuthGuard, RolesGuard)
 	@Roles('ADMIN', 'STAFF')
+	@UsePipes(new CustomZodValidationPipe(CreateBookSchema))
 	createBook(@Body() createBookDto: CreateBookDto) {
 		return this.booksService.createBook(createBookDto);
 	}
@@ -58,16 +62,11 @@ export class BooksController {
 		limit = limit ?? 10;
 		page = page ?? 1;
 
-		const books = await this.booksService.getAllBooks();
-		const booksDTOs: BookResponseDto[] = [];
+		const offset = (page - 1) * limit;
 
-		books.slice((page - 1) * limit, page * limit).map((b) => {
-			booksDTOs.push(
-				new BookResponseDto(b.id, b.bookName, b.note, b.authorId)
-			);
-		});
+		const books = await this.booksService.getAllBooks(offset, limit);
 
-		return booksDTOs;
+		return books;
 	}
 
 	@ApiOperation({ summary: 'Получить книгу по id' })
@@ -75,12 +74,7 @@ export class BooksController {
 	async findOne(@Param('id') id: string) {
 		const book = await this.booksService.getBookById(+id);
 		if (book) {
-			return new BookResponseDto(
-				book.id,
-				book.bookName,
-				book.note,
-				book.authorId
-			);
+			return book;
 		}
 		throw new NotFoundException(`Книга с id = ${id} не найден`);
 	}
@@ -94,10 +88,11 @@ export class BooksController {
 	@Roles('ADMIN', 'STAFF')
 	@UseGuards(JwtAuthGuard, RolesGuard)
 	async update(
-		@Param('id') id: string,
-		@Body() updateBookDto: UpdateBookDto
+		@Param('id') id: number,
+		@Body(new CustomZodValidationPipe(UpdateBookSchema))
+		updateBookDto: UpdateBookDto
 	) {
-		return await this.booksService.updateBook(+id, updateBookDto);
+		return await this.booksService.updateBook(id, updateBookDto);
 	}
 
 	@Delete(':id')
@@ -108,7 +103,7 @@ export class BooksController {
 	})
 	@Roles('ADMIN', 'STAFF')
 	@UseGuards(JwtAuthGuard, RolesGuard)
-	async remove(@Param('id') id: string) {
-		return await this.booksService.deleteBook(+id);
+	async remove(@Param('id') id: number) {
+		return await this.booksService.deleteBook(id);
 	}
 }

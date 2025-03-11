@@ -1,6 +1,10 @@
+import { z } from 'zod';
 import { ApiProperty } from '@nestjs/swagger';
+import { UpdateBookReviewSchema } from 'src/books/schemas/book.schema';
 
-export class UpdateBookReviewDto {
+export class UpdateBookReviewDto
+	implements z.infer<typeof UpdateBookReviewSchema>
+{
 	@ApiProperty({
 		description: 'Отзыв',
 		example: 'Развёрнутый отзыв',

@@ -1,4 +1,8 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import {
+	ConflictException,
+	Injectable,
+	NotFoundException
+} from '@nestjs/common';
 import { Book } from './models/books.model';
 import { InjectModel } from '@nestjs/sequelize';
 import { CreateBookDto } from './dto/request/create-book.dto';
@@ -15,6 +19,16 @@ export class BooksService {
 	async createBook(dto: CreateBookDto) {
 		const author = await this.authorService.getAuthorById(dto.authorId);
 
+		const existingBook = await this.bookRepository.findOne({
+			where: { bookName: dto.bookName }
+		});
+
+		if (existingBook) {
+			throw new ConflictException(
+				`Книга с именем ${dto.bookName} уже существует.`
+			);
+		}
+
 		if (author) {
 			const book = await this.bookRepository.create({
 				bookName: dto.bookName,
@@ -28,17 +42,15 @@ export class BooksService {
 		throw new NotFoundException(`Автор с id ${dto.authorId} не найден.`);
 	}
 
-	async getAllBooks() {
-		const books = await this.bookRepository.findAll({
-			include: { all: true }
+	async getAllBooks(offset: number, limit: number) {
+		return Book.findAll({
+			offset,
+			limit
 		});
-		return books;
 	}
 
 	async getBookById(id: number) {
-		const book = await this.bookRepository.findByPk(id, {
-			include: { all: true }
-		});
+		const book = await this.bookRepository.findByPk(id);
 		return book;
 	}
 
@@ -51,6 +63,32 @@ export class BooksService {
 	}
 
 	async updateBook(id: number, dto: UpdateBookDto) {
+		const book = await this.bookRepository.findByPk(id);
+		if (!book) {
+			throw new NotFoundException(`Книга с id ${id} не найдена.`);
+		}
+
+		if (dto.authorId) {
+			const author = await this.authorService.getAuthorById(dto.authorId);
+			if (!author) {
+				throw new NotFoundException(
+					`Автор с id ${dto.authorId} не найден.`
+				);
+			}
+		}
+
+		if (dto.bookName && dto.bookName !== book.bookName) {
+			const existingBook = await this.bookRepository.findOne({
+				where: { bookName: dto.bookName }
+			});
+
+			if (existingBook) {
+				throw new ConflictException(
+					`Книга с именем ${dto.bookName} уже существует.`
+				);
+			}
+		}
+
 		const [rowsUpdated, [updatedBook]] = await this.bookRepository.update(
 			dto,
 			{
@@ -58,7 +96,12 @@ export class BooksService {
 				returning: true
 			}
 		);
-		return rowsUpdated ? updatedBook : null;
+
+		if (!rowsUpdated) {
+			throw new NotFoundException(`Книга с id ${id} не найдена.`);
+		}
+
+		return updatedBook;
 	}
 
 	async deleteBook(id: number) {

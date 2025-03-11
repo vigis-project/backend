@@ -10,6 +10,7 @@ import { AuthModule } from 'src/auth/auth.module';
 import { BookReviewService } from './book-review.service';
 import { BookReviewController } from './book-review.controller';
 import { AuthorsModule } from 'src/authors/authors.module';
+import { CustomZodValidationPipe } from 'src/pipes/custom-zod-validation-pipe.pipe';
 
 @Module({
 	controllers: [BooksController, BookReviewController],

@@ -1,6 +1,10 @@
+import { z } from 'zod';
 import { ApiProperty } from '@nestjs/swagger';
+import { CreateBookReviewSchema } from 'src/books/schemas/book.schema';
 
-export class CreateBookReviewDto {
+export class CreateBookReviewDto
+	implements z.infer<typeof CreateBookReviewSchema>
+{
 	@ApiProperty({
 		description: 'Отзыв',
 		example: 'Развёрнутый отзыв'
