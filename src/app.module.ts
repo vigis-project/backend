@@ -26,7 +26,7 @@ import { ExchangeListModule } from './exchange-list/exchange-list.module';
 	providers: [AppService],
 	imports: [
 		ConfigModule.forRoot({
-			envFilePath: `.${process.env.NODE_ENV}.env`
+			envFilePath: `.env.${process.env.NODE_ENV}`
 		}),
 		SequelizeModule.forRoot({
 			dialect: 'postgres',
@@ -35,7 +35,15 @@ import { ExchangeListModule } from './exchange-list/exchange-list.module';
 			username: process.env.DATABASE_USER,
 			password: process.env.DATABASE_PASSWORD,
 			database: process.env.DATABASE_NAME,
-			models: [User, Role, UserRoles, Book, BookReview, Author, UserAddress],
+			models: [
+				User,
+				Role,
+				UserRoles,
+				Book,
+				BookReview,
+				Author,
+				UserAddress
+			],
 			autoLoadModels: true,
 			synchronize: true
 		}),
@@ -54,6 +62,8 @@ export class AppModule {
 	constructor(private sequelize: Sequelize) {}
 
 	async onModuleInit() {
-		await this.sequelize.sync({ alter: true });
+		await this.sequelize.sync({
+			alter: process.env.NODE_ENV === 'development' ? true : false
+		});
 	}
 }

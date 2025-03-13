@@ -1,8 +1,8 @@
 import { Injectable } from '@nestjs/common';
 import { Author } from './models/authors.model';
 import { InjectModel } from '@nestjs/sequelize';
-import { CreateAuthorDto } from './dto/create-author.dto';
-import { UpdateAuthorDto } from './dto/update-author.dto';
+import { CreateAuthorDto } from './dto/request/create-author.dto';
+import { UpdateAuthorDto } from './dto/request/update-author.dto';
 
 @Injectable()
 export class AuthorsService {

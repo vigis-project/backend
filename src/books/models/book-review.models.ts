@@ -6,45 +6,31 @@ import {
 	DataType,
 	ForeignKey,
 	Model,
-	NotNull,
 	PrimaryKey,
 	Table,
 	Unique
 } from 'sequelize-typescript';
 import { Book } from './books.model';
 import { User } from 'src/users/models/users.model';
-
-interface BookReviewCreationAttrs {
-	review: string;
-	note: string;
-	bookId: number;
-	userId: number;
-}
+import { BookReviewCreationAttrs } from '../types/book-review-creation-attrs.interface';
 
 @Table({ tableName: 'book_reviews' })
 export class BookReview extends Model<Book, BookReviewCreationAttrs> {
-
 	@Unique
 	@PrimaryKey
 	@AutoIncrement
 	@Column({ type: DataType.INTEGER })
 	id: number;
-	
+
 	@AllowNull(false)
 	@ForeignKey(() => Book)
 	@Column({ type: DataType.INTEGER })
 	bookId: number;
 
-	@BelongsTo(() => Book)
-	book: Book;
-
 	@AllowNull(false)
 	@ForeignKey(() => User)
 	@Column({ type: DataType.INTEGER })
 	userId: number;
-
-	@BelongsTo(() => User)
-	user: User;
 
 	@AllowNull(false)
 	@Column({ type: DataType.STRING(500) })
@@ -52,4 +38,10 @@ export class BookReview extends Model<Book, BookReviewCreationAttrs> {
 
 	@Column({ type: DataType.STRING(50) })
 	note: string;
+
+	@BelongsTo(() => User)
+	user: User;
+
+	@BelongsTo(() => Book)
+	book: Book;
 }
