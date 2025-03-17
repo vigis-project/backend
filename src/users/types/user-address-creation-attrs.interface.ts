@@ -6,5 +6,5 @@ export interface UserAddressCreationAttrs {
 	addrStructure: string;
 	addrApart: string;
 	isDefault: boolean;
-	idUser: number;
+	userId: number;
 }

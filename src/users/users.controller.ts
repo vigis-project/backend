@@ -2,8 +2,10 @@ import {
 	Body,
 	Controller,
 	Get,
+	NotFoundException,
 	Param,
 	Post,
+	Put,
 	Query,
 	UseGuards
 } from '@nestjs/common';
@@ -11,13 +13,26 @@ import { CreateUserDto } from './dto/request/create-user.dto';
 import { UsersService } from './users.service';
 import { Roles } from 'src/roles/roles-auth.decorator';
 import { RolesGuard } from 'src/roles/roles.guard';
-import { ApiBearerAuth, ApiOperation, ApiQuery } from '@nestjs/swagger';
+import {
+	ApiBearerAuth,
+	ApiOperation,
+	ApiParam,
+	ApiQuery
+} from '@nestjs/swagger';
 import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
 import { UserResponseDto } from './dto/response/user-response.dto';
+import { UserAddressService } from './users-address.service';
+import { User } from './user.decorator';
+import { UpdateUserAddressDto } from './dto/request/update-user-address.dto';
+import { CustomZodValidationPipe } from 'src/pipes/custom-zod-validation-pipe.pipe';
+import { UpdateUserAddressSchema } from './schemas/user-address.schema';
 
 @Controller('users')
 export class UsersController {
-	constructor(private userService: UsersService) {}
+	constructor(
+		private userService: UsersService,
+		private userAddressService: UserAddressService
+	) {}
 
 	@ApiBearerAuth()
 	@ApiOperation({
@@ -57,9 +72,14 @@ export class UsersController {
 	) {
 		limit = limit ?? 10;
 		page = page ?? 1;
-		const users = await this.userService.getAllUsers();
+
+		const offset = (page - 1) * limit;
+
+		const users = await this.userService.getAllUsers(offset, limit);
+
 		const usersDTOs: UserResponseDto[] = [];
-		users.slice((page - 1) * limit, page * limit).map((u) => {
+
+		users.map((u) => {
 			usersDTOs.push(
 				new UserResponseDto(
 					u.id,
@@ -72,5 +92,58 @@ export class UsersController {
 			);
 		});
 		return usersDTOs;
+	}
+
+	@ApiBearerAuth()
+	@ApiOperation({
+		summary: 'Получить адрес пользователя, пользователь должен быть авторизован'
+	})
+	@UseGuards(JwtAuthGuard)
+	@Get(':id/address')
+	async getUserAddressByUserId(@Param('id') userId: number, @User() user) {
+		const address = await this.userAddressService.findUserAddressByUserID(
+			user,
+			userId
+		);
+		if (address) {
+			return address;
+		}
+		throw new NotFoundException(
+			`Адрес пользователя с id = ${userId} не найден`
+		);
+	}
+
+	@ApiBearerAuth()
+	@ApiOperation({
+		summary: 'Обновить адрес пользователя по ID пользователя, пользователь должен быть авторизован',
+		description: 'Требуется JWT токен владелец адреса.'
+	})
+	@ApiParam({
+		name: 'id',
+		type: Number,
+		description: 'ID пользователя, чей адрес нужно обновить'
+	})
+	@UseGuards(JwtAuthGuard)
+	@Put(':id/address')
+	async updateUserAddress(
+		@Param('id') userId: number,
+		@Body(new CustomZodValidationPipe(UpdateUserAddressSchema))
+		updateUserAddressDto: UpdateUserAddressDto,
+		@User() user
+	) {
+		const updatedAddress =
+			await this.userAddressService.updateUserAddressByUserId(
+				user,
+				userId,
+				updateUserAddressDto
+			);
+
+		if (!updatedAddress) {
+			throw new NotFoundException(
+				`Адрес пользователя с ID = ${userId} не найден`
+			);
+		}
+
+		return updatedAddress;
 	}
 }

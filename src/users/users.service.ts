@@ -24,9 +24,10 @@ export class UsersService {
 		return user;
 	}
 
-	async getAllUsers() {
+	async getAllUsers(offset: number, limit: number) {
 		const users = await this.userRepository.findAll({
-			include: { all: true }
+			offset,
+			limit
 		});
 		return users;
 	}
