@@ -24,25 +24,25 @@ export class UserAddress extends Model<UserAddress, UserAddressCreationAttrs> {
 	@Column({ type: DataType.INTEGER })
 	userId: number;
 
-	@Column({ type: DataType.STRING(6) })
-	addrIndex: string;
+	@Column({ type: DataType.STRING(6), allowNull: true })
+	addrIndex?: string;
 
-	@Column({ type: DataType.STRING(35) })
-	addrCity: string;
+	@Column({ type: DataType.STRING(35), allowNull: true })
+	addrCity?: string;
 
-	@Column({ type: DataType.STRING(25) })
-	addrStreet: string;
+	@Column({ type: DataType.STRING(25), allowNull: true })
+	addrStreet?: string;
 
-	@Column({ type: DataType.STRING(5) })
-	addrHouse: string;
+	@Column({ type: DataType.STRING(5), allowNull: true })
+	addrHouse?: string;
 
-	@Column({ type: DataType.STRING(3) })
-	addrStructure: string;
+	@Column({ type: DataType.STRING(3), allowNull: true })
+	addrStructure?: string;
 
-	@Column({ type: DataType.STRING(5) })
-	addrApart: string;
+	@Column({ type: DataType.STRING(5), allowNull: true })
+	addrApart?: string;
 
-	@Column({ type: DataType.BOOLEAN })
+	@Column({ type: DataType.BOOLEAN, defaultValue: true })
 	isDefault: boolean;
 
 	@BelongsTo(() => User)

@@ -7,7 +7,6 @@ import {
 import { InjectModel } from '@nestjs/sequelize';
 import { UserAddress } from './models/user-address.model';
 import { User } from './models/users.model';
-import { UserAddressCreationAttrs } from './types/user-address-creation-attrs.interface';
 import { UpdateUserAddressDto } from './dto/request/update-user-address.dto';
 
 @Injectable()
@@ -24,18 +23,7 @@ export class UserAddressService {
 		});
 
 		if (user) {
-			let defaultAddress: UserAddressCreationAttrs = {
-				addrIndex: '000000',
-				addrCity: 'Город не выбран',
-				addrStreet: 'Улица не выбрана',
-				addrHouse: '',
-				addrStructure: '',
-				addrApart: '',
-				userId,
-				isDefault: true
-			};
-
-			const newAddress = await UserAddress.create(defaultAddress);
+			const newAddress = await UserAddress.create({ userId });
 
 			user.address = newAddress;
 			await user.save();
@@ -47,7 +35,6 @@ export class UserAddressService {
 	}
 
 	async findUserAddressByUserID(user: User, userId: number) {
-
 		const address = await this.userAddressRepository.findOne({
 			where: {
 				userId
@@ -93,9 +80,9 @@ export class UserAddressService {
 			addrStreet: updateUserAddressDto.addrStreet,
 			addrHouse: updateUserAddressDto.addrHouse,
 			addrStructure: updateUserAddressDto.addrStructure,
-			addrApart: updateUserAddressDto.addrApart,
+			addrApart: updateUserAddressDto.addrApart
 		});
-		
+
 		return address;
 	}
 }
