@@ -29,20 +29,20 @@ export class ExchangeListController {
 	}
 
 	@Get(':id')
-	findOne(@Param('id') id: string) {
-		return this.exchangeService.getExchangeById(+id);
+	findOne(@Param('id') id: number) {
+		return this.exchangeService.getExchangeById(id);
 	}
 
 	@Patch(':id')
 	update(
-		@Param('id') id: string,
+		@Param('id') id: number,
 		@Body() updateExchangeDto: UpdateExchangeListDto
 	) {
-		return this.exchangeService.updateExchange(+id, updateExchangeDto);
+		return this.exchangeService.updateExchange(id, updateExchangeDto);
 	}
 
 	@Delete(':id')
-	remove(@Param('id') id: string) {
-		return this.exchangeService.deleteExchange(+id);
+	remove(@Param('id') id: number) {
+		return this.exchangeService.deleteExchange(id);
 	}
 }

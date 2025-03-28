@@ -91,7 +91,7 @@ export class BookReviewController {
 	@UseGuards(JwtAuthGuard)
 	@Patch(':id')
 	async updateReview(
-		@Param('id') id: string,
+		@Param('id') id: number,
 		@Body() updateReviewDto: UpdateBookReviewDto,
 		@User() user
 	) {
@@ -100,7 +100,7 @@ export class BookReviewController {
 		}
 		const userId = user.id;
 		return await this.reviewService.updateReview(
-			+id,
+			id,
 			updateReviewDto,
 			userId
 		);
@@ -112,12 +112,12 @@ export class BookReviewController {
 	})
 	@UseGuards(JwtAuthGuard)
 	@Delete(':id')
-	remove(@Param('id') id: string, @User() user) {
+	remove(@Param('id') id: number, @User() user) {
 		if (!user) {
 			throw new UnauthorizedException('Пользователь не авторизован');
 		}
 
 		const userId = user.id;
-		return this.reviewService.deleteReview(+id, userId);
+		return this.reviewService.deleteReview(id, userId);
 	}
 }

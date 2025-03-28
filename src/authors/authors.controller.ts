@@ -70,8 +70,8 @@ export class AuthorsController {
 
 	@ApiOperation({ summary: 'Получить автора по id' })
 	@Get(':id')
-	async findOne(@Param('id') id: string) {
-		const author = await this.authorsService.getAuthorById(+id);
+	async findOne(@Param('id') id: number) {
+		const author = await this.authorsService.getAuthorById(id);
 		if (author) {
 			return new AuthorResponseDto(
 				author.id,
@@ -90,10 +90,10 @@ export class AuthorsController {
 	@UseGuards(JwtAuthGuard, RolesGuard)
 	@Patch(':id')
 	async update(
-		@Param('id') id: string,
+		@Param('id') id: number,
 		@Body() updateAuthorDto: UpdateAuthorDto
 	) {
-		return await this.authorsService.updateAuthor(+id, updateAuthorDto);
+		return await this.authorsService.updateAuthor(id, updateAuthorDto);
 	}
 
 	@ApiBearerAuth()
@@ -103,7 +103,7 @@ export class AuthorsController {
 	@Roles('ADMIN', 'STAFF')
 	@UseGuards(JwtAuthGuard, RolesGuard)
 	@Delete(':id')
-	async remove(@Param('id') id: string) {
-		return await this.authorsService.deleteAuthor(+id);
+	async remove(@Param('id') id: number) {
+		return await this.authorsService.deleteAuthor(id);
 	}
 }

@@ -34,8 +34,8 @@ export class OfferListController {
 	}
 
 	@Get(':id')
-	async findOne(@Param('id') id: string) {
-		const offerList = await this.offerService.getOfferById(+id);
+	async findOne(@Param('id') id: number) {
+		const offerList = await this.offerService.getOfferById(id);
 		if (offerList) {
 			return OfferDtoResponse.fromOfferList(offerList);
 		}
@@ -44,16 +44,16 @@ export class OfferListController {
 
 	@Patch(':id')
 	update(
-		@Param('id') id: string,
+		@Param('id') id: number,
 		@Body() updateOfferDto: UpdateOfferListDto
 	) {
-		return this.offerService.updateOffer(+id, updateOfferDto);
+		return this.offerService.updateOffer(id, updateOfferDto);
 	}
 
 	@Roles('ADMIN')
 	@UseGuards(RolesGuard)
 	@Delete(':id')
-	remove(@Param('id') id: string) {
-		return this.offerService.deleteOffer(+id);
+	remove(@Param('id') id: number) {
+		return this.offerService.deleteOffer(id);
 	}
 }

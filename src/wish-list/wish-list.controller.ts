@@ -32,10 +32,10 @@ export class WishListController {
 
 	@Patch(':id')
 	update(
-		@Param('id') id: string,
+		@Param('id') id: number,
 		@Body() updateWishListDto: UpdateWishListDto
 	) {
-		return this.wishListService.updateWishList(+id, updateWishListDto);
+		return this.wishListService.updateWishList(id, updateWishListDto);
 	}
 
 	@Delete(':id')

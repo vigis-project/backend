@@ -71,8 +71,8 @@ export class BooksController {
 
 	@ApiOperation({ summary: 'Получить книгу по id' })
 	@Get(':id')
-	async findOne(@Param('id') id: string) {
-		const book = await this.booksService.getBookById(+id);
+	async findOne(@Param('id') id: number) {
+		const book = await this.booksService.getBookById(id);
 		if (book) {
 			return book;
 		}
