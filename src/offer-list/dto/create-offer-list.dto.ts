@@ -3,5 +3,5 @@ export class CreateOfferListDto {
 	readonly userId: number;
 	readonly ISBN: string;
 	readonly yearPublishing: Date;
-	//readonly statusId: number;
+	readonly statusId: number;
 }

@@ -17,6 +17,9 @@ import { AuthorsModule } from './authors/authors.module';
 import { Author } from './authors/models/authors.model';
 import { UserAddress } from './users/models/user-address.model';
 import { OfferListModule } from './offer-list/offer-list.module';
+import { WishListModule } from './wish-list/wish-list.module';
+import { StatusModule } from './status/status.module';
+import { ExchangeListModule } from './exchange-list/exchange-list.module';
 
 @Module({
 	controllers: [AppController],
@@ -49,7 +52,10 @@ import { OfferListModule } from './offer-list/offer-list.module';
 		AuthModule,
 		BooksModule,
 		AuthorsModule,
-		OfferListModule
+		OfferListModule,
+		WishListModule,
+		StatusModule,
+		ExchangeListModule
 	]
 })
 export class AppModule {

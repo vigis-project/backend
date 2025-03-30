@@ -10,14 +10,14 @@ import {
 } from 'sequelize-typescript';
 import { Book } from 'src/books/models/books.model';
 import { User } from 'src/users/models/users.model';
-//import { Status } from 'src/status/status.model';
+import { Status } from 'src/status/models/status.model';
 
 interface OfferListCreationAttrs {
 	bookId: number;
 	userId: number;
 	ISBN: string;
 	yearPublishing: Date;
-	//statusId: number;
+	statusId: number;
 }
 
 @Table({ tableName: 'offer_list' })
@@ -41,16 +41,10 @@ export class OfferList extends Model<OfferList, OfferListCreationAttrs> {
 	@Column({ type: DataType.DATE, allowNull: false })
 	publishingYear: Date;
 
-	// @ForeignKey(() => Status)
-	// @Column({ type: DataType.INTEGER })
-	// statusId: number;
+	@ForeignKey(() => Status)
+	@Column({ type: DataType.INTEGER })
+	statusId: number;
 
-	@BelongsTo(() => Book)
-	book: Book;
-
-	@BelongsTo(() => User)
-	user: User;
-
-	// @BelongsTo(() => Status)
-	// status: Status;
+	@BelongsTo(() => Status)
+	status: Status;
 }
