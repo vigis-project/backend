@@ -6,6 +6,7 @@ services:
     build: .
     ports:
       - "3000:3000"
+      - "3030:3030"
     environment:
       - DATABASE_HOST=postgres
       - DATABASE_PORT=${DATABASE_PORT}

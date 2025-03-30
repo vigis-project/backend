@@ -47,7 +47,6 @@ export class UserAddressService {
 	}
 
 	async findUserAddressByUserID(user: User, userId: number) {
-
 		const address = await this.userAddressRepository.findOne({
 			where: {
 				userId
@@ -93,9 +92,9 @@ export class UserAddressService {
 			addrStreet: updateUserAddressDto.addrStreet,
 			addrHouse: updateUserAddressDto.addrHouse,
 			addrStructure: updateUserAddressDto.addrStructure,
-			addrApart: updateUserAddressDto.addrApart,
+			addrApart: updateUserAddressDto.addrApart
 		});
-		
+
 		return address;
 	}
 }

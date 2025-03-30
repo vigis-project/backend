@@ -6,6 +6,17 @@ export const CreateBookSchema = z.object({
 		.min(1, { message: 'Название книги обязательно' })
 		.max(50),
 	note: z.string().min(1, { message: 'Описание книги обязательно' }).max(50),
+	ISBN: z
+		.string()
+		.min(10, { message: 'ISBN должен содержать от 10 до 13 символов' })
+		.max(13, { message: 'ISBN должен содержать от 10 до 13 символов' })
+		.refine(
+			(value) => /^(97[89])?\d{9}[\dX]$/.test(value.replace(/-/g, '')),
+			{
+				message:
+					'Некорректный формат ISBN (ожидается ISBN-10 или ISBN-13)'
+			}
+		),
 	authorId: z
 		.number()
 		.int()

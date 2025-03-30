@@ -15,6 +15,11 @@ export class CreateBookDto implements z.infer<typeof CreateBookSchema> {
 	})
 	readonly note: string;
 	@ApiProperty({
+		description: 'ISBN книги',
+		example: '9783161484100'
+	})
+	readonly ISBN: string;
+	@ApiProperty({
 		description: 'ID Автора',
 		example: 1
 	})

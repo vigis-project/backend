@@ -33,6 +33,7 @@ export class BooksService {
 			const book = await this.bookRepository.create({
 				bookName: dto.bookName,
 				note: dto.note,
+				ISBN: dto.ISBN,
 				authorId: author.id
 			});
 

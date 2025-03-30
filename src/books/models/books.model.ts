@@ -18,6 +18,7 @@ import { Author } from 'src/authors/models/authors.model';
 interface BookCreationAttrs {
 	bookName: string;
 	note: string;
+	ISBN: string;
 	authorId: number;
 }
 
@@ -37,6 +38,9 @@ export class Book extends Model<Book, BookCreationAttrs> {
 	@AllowNull(false)
 	@Column({ type: DataType.STRING(50) })
 	note: string;
+
+	@Column({ type: DataType.STRING(13), unique: true })
+	ISBN: string;
 
 	@AllowNull(false)
 	@Column({ type: DataType.INTEGER, defaultValue: 0 })

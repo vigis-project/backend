@@ -96,7 +96,8 @@ export class UsersController {
 
 	@ApiBearerAuth()
 	@ApiOperation({
-		summary: 'Получить адрес пользователя, пользователь должен быть авторизован'
+		summary:
+			'Получить адрес пользователя, пользователь должен быть авторизован'
 	})
 	@UseGuards(JwtAuthGuard)
 	@Get(':id/address')
@@ -115,7 +116,8 @@ export class UsersController {
 
 	@ApiBearerAuth()
 	@ApiOperation({
-		summary: 'Обновить адрес пользователя по ID пользователя, пользователь должен быть авторизован',
+		summary:
+			'Обновить адрес пользователя по ID пользователя, пользователь должен быть авторизован',
 		description: 'Требуется JWT токен владелец адреса.'
 	})
 	@ApiParam({
