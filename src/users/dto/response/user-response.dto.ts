@@ -1,3 +1,5 @@
+import { User } from 'src/users/models/users.model';
+
 export class UserResponseDto {
 	readonly id: number;
 	readonly email: string;
@@ -20,5 +22,16 @@ export class UserResponseDto {
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.secondName = secondName;
+	}
+
+	static fromUser(user: User) {
+		return new UserResponseDto(
+			user.id,
+			user.email,
+			user.username,
+			user.firstName,
+			user.lastName,
+			user.secondName
+		);
 	}
 }
