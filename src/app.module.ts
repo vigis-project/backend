@@ -20,6 +20,11 @@ import { OfferListModule } from './offer-list/offer-list.module';
 import { WishListModule } from './wish-list/wish-list.module';
 import { StatusModule } from './status/status.module';
 import { ExchangeListModule } from './exchange-list/exchange-list.module';
+import { UserExchangeModule } from './user-exchange-list/user-exchange-list.module';
+import { UserListModule } from './user-list/user-list.module';
+import { UserValueCategoryModule } from './user-value-category/user-value-category.module';
+import { CategoryModule } from './category/category.module';
+import { UserMsgModule } from './user-msg/user-msg.module';
 
 @Module({
 	controllers: [AppController],
@@ -55,7 +60,12 @@ import { ExchangeListModule } from './exchange-list/exchange-list.module';
 		OfferListModule,
 		WishListModule,
 		StatusModule,
-		ExchangeListModule
+		ExchangeListModule,
+		UserExchangeModule,
+		UserListModule,
+		UserValueCategoryModule,
+		CategoryModule,
+		UserMsgModule
 	]
 })
 export class AppModule {
