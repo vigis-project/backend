@@ -10,12 +10,14 @@ import { UsersService } from 'src/users/users.service';
 import * as bcrypt from 'bcryptjs';
 import { LoginDto } from './dto/request/login.dto';
 import { User } from 'src/users/models/users.model';
+import { MailerService } from '@nestjs-modules/mailer';
 
 @Injectable()
 export class AuthService {
 	constructor(
 		private userService: UsersService,
-		private jwtService: JwtService
+		private jwtService: JwtService,
+		private mailService: MailerService
 	) {}
 
 	async login(userDto: LoginDto) {
@@ -39,6 +41,14 @@ export class AuthService {
 			...userDto,
 			password: hashPassword
 		});
+		
+		this.mailService.sendMail({
+			from: `Vigis <${process.env.EMAIL_USERNAME}>`,
+			to: `${user.email}`,
+			subject: `Успешная регистрация`,
+			text: `Регистрация прошла успешно! Добро пожаловать на платформу Vigis!`,
+		  });
+
 		return this.generateToken(user);
 	}
 
