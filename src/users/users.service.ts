@@ -1,9 +1,10 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { User } from './models/users.model';
 import { InjectModel } from '@nestjs/sequelize';
 import { CreateUserDto } from './dto/request/create-user.dto';
 import { RolesService } from 'src/roles/roles.service';
 import { UserAddressService } from './users-address.service';
+import { UserResponseDto } from './dto/response/user-response.dto';
 
 @Injectable()
 export class UsersService {
@@ -38,5 +39,13 @@ export class UsersService {
 			include: { all: true }
 		});
 		return user;
+	}
+
+	async getCurrentUser(userId: number) {
+		const user = await this.userRepository.findByPk(userId)
+		if(user) {
+			return UserResponseDto.fromUser(user);
+		}
+		throw new NotFoundException(`Пользователь с id = ${userId} не найден`);
 	}
 }
