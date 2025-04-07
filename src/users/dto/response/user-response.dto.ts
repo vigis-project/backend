@@ -2,7 +2,6 @@ import { User } from 'src/users/models/users.model';
 
 export class UserResponseDto {
 	readonly id: number;
-	readonly email: string;
 	readonly username: string;
 	readonly firstName: string;
 	readonly lastName: string;
@@ -10,14 +9,12 @@ export class UserResponseDto {
 
 	constructor(
 		id: number,
-		email: string,
 		username: string,
 		firstName: string,
 		lastName: string,
 		secondName: string
 	) {
 		this.id = id;
-		this.email = email;
 		this.username = username;
 		this.firstName = firstName;
 		this.lastName = lastName;
@@ -27,7 +24,6 @@ export class UserResponseDto {
 	static fromUser(user: User) {
 		return new UserResponseDto(
 			user.id,
-			user.email,
 			user.username,
 			user.firstName,
 			user.lastName,

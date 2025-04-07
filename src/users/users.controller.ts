@@ -26,6 +26,9 @@ import { User } from './user.decorator';
 import { UpdateUserAddressDto } from './dto/request/update-user-address.dto';
 import { CustomZodValidationPipe } from 'src/pipes/custom-zod-validation-pipe.pipe';
 import { UpdateUserAddressSchema } from './schemas/user-address.schema';
+import { User as UserModel } from './models/users.model';
+import { UserResponseFullDto } from './dto/response/user-response-full.dto';
+import { AuthUserData } from 'src/auth/types';
 
 @Controller('users')
 export class UsersController {
@@ -83,7 +86,6 @@ export class UsersController {
 			usersDTOs.push(
 				new UserResponseDto(
 					u.id,
-					u.email,
 					u.username,
 					u.firstName,
 					u.lastName,
@@ -101,9 +103,30 @@ export class UsersController {
 	})
 	@UseGuards(JwtAuthGuard)
 	@Get('me')
-	async getCurrentUser(@User() user) {
+	async getCurrentUser(@User() user: AuthUserData) {
 		const userId = user.id;
-		return this.userService.getCurrentUser(userId);
+		const userData = (await this.userService.getUserById(userId))!;
+
+		return UserResponseFullDto.fromUser(userData);
+	}
+
+	@ApiBearerAuth()
+	@ApiOperation({
+		summary:
+			'Получить данные пользователя, пользователь должен быть авторизован'
+	})
+	@UseGuards(JwtAuthGuard)
+	@Get(':id')
+	async getUser(@Param('id') userId: number) {
+		const user = await this.userService.getUserById(userId);
+
+		if (user) {
+			return UserResponseDto.fromUser(user);
+		} else {
+			throw new NotFoundException({
+				message: 'Пользователь с таким ID не найден.'
+			});
+		}
 	}
 
 	@ApiBearerAuth()
