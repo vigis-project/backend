@@ -5,10 +5,12 @@ import { UserValueCategoryService } from './user-value-category.service';
 import { UserValueCategoryController } from './user-value-category.controller';
 import { UserList } from 'src/user-list/models/user-list.model';
 import { Category } from 'src/category/models/category.model';
+import { JwtModule } from '@nestjs/jwt';
 
 @Module({
 	imports: [
-		SequelizeModule.forFeature([UserValueCategory, UserList, Category])
+		SequelizeModule.forFeature([UserValueCategory, UserList, Category]),
+		JwtModule
 	],
 	controllers: [UserValueCategoryController],
 	providers: [UserValueCategoryService],
