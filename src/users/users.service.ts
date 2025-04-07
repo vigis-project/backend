@@ -5,6 +5,8 @@ import { CreateUserDto } from './dto/request/create-user.dto';
 import { RolesService } from 'src/roles/roles.service';
 import { UserAddressService } from './users-address.service';
 import { UserResponseDto } from './dto/response/user-response.dto';
+import { UserResponseWithRolesDto } from './dto/response/user-response-with-roles.dto';
+import { Role } from 'src/roles/roles.model';
 
 @Injectable()
 export class UsersService {
@@ -42,9 +44,11 @@ export class UsersService {
 	}
 
 	async getCurrentUser(userId: number) {
-		const user = await this.userRepository.findByPk(userId)
+		const user = await this.userRepository.findByPk(userId, {
+			include: [Role] 
+		})
 		if(user) {
-			return UserResponseDto.fromUser(user);
+			return UserResponseWithRolesDto.fromUser(user);
 		}
 		throw new NotFoundException(`Пользователь с id = ${userId} не найден`);
 	}
