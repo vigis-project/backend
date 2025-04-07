@@ -14,20 +14,20 @@ import { JwtAuthGuard } from './jwt-auth.guard';
 	imports: [
 		MailerModule.forRootAsync({
 			useFactory: () => ({
-			  transport: {
-				host: process.env.EMAIL_HOST,
-				port: process.env.EMAIL_PORT?.toString(),
-				secure: false,
-				auth: {
-				  user: process.env.EMAIL_USERNAME,
-				  pass: process.env.EMAIL_PASSWORD,
+				transport: {
+					host: process.env.EMAIL_HOST,
+					port: process.env.EMAIL_PORT?.toString(),
+					secure: false,
+					auth: {
+						user: process.env.EMAIL_USERNAME,
+						pass: process.env.EMAIL_PASSWORD
+					}
 				},
-			  },
-			  defaults: {
-				from: `Vigis <${process.env.EMAIL_USERNAME}>`,
-			  },
-			}),
-		  }),
+				defaults: {
+					from: `Vigis <${process.env.EMAIL_USERNAME}>`
+				}
+			})
+		}),
 		forwardRef(() => UsersModule),
 		JwtModule.register({
 			secret: process.env.JWT_PRIVATE_KEY || 'SUPER_MEGA_SECRET',

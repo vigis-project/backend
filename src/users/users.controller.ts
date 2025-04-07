@@ -95,7 +95,10 @@ export class UsersController {
 	}
 
 	@ApiBearerAuth()
-	@ApiOperation({ summary: 'Получить данные текущего пользователя, пользователь должен быть авторизован' })
+	@ApiOperation({
+		summary:
+			'Получить данные текущего пользователя, пользователь должен быть авторизован'
+	})
 	@UseGuards(JwtAuthGuard)
 	@Get('me')
 	async getCurrentUser(@User() user) {

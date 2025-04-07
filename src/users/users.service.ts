@@ -45,9 +45,9 @@ export class UsersService {
 
 	async getCurrentUser(userId: number) {
 		const user = await this.userRepository.findByPk(userId, {
-			include: [Role] 
-		})
-		if(user) {
+			include: [Role]
+		});
+		if (user) {
 			return UserResponseWithRolesDto.fromUser(user);
 		}
 		throw new NotFoundException(`Пользователь с id = ${userId} не найден`);
