@@ -32,10 +32,10 @@ export class UsersService {
 		return users;
 	}
 
-	async getUserByEmail(email: string) {
+	async getUserByEmail(email: string, short: boolean = false) {
 		const user = await this.userRepository.findOne({
 			where: { email },
-			include: { all: true }
+			include: short ? undefined : { all: true }
 		});
 		return user;
 	}
