@@ -1,1 +1,4 @@
-export class CreateUserListDto {}
+export class CreateUserListDto {
+	typeListId: number;
+	listId: number;
+}

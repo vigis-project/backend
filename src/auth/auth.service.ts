@@ -27,7 +27,8 @@ export class AuthService {
 
 	async register(userDto: CreateUserDto) {
 		const candidateEmail = await this.userService.getUserByEmail(
-			userDto.email
+			userDto.email,
+			true
 		);
 		if (candidateEmail) {
 			throw new HttpException(
@@ -41,13 +42,13 @@ export class AuthService {
 			...userDto,
 			password: hashPassword
 		});
-		
+
 		this.mailService.sendMail({
 			from: `Vigis <${process.env.EMAIL_USERNAME}>`,
 			to: `${user.email}`,
 			subject: `Успешная регистрация`,
-			text: `Регистрация прошла успешно! Добро пожаловать на платформу Vigis!`,
-		  });
+			text: `Регистрация прошла успешно! Добро пожаловать на платформу Vigis!`
+		});
 
 		return this.generateToken(user);
 	}
