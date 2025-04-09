@@ -1,6 +1,7 @@
 import {
 	Body,
 	Controller,
+	ForbiddenException,
 	Get,
 	NotFoundException,
 	Param,
@@ -105,7 +106,11 @@ export class UsersController {
 	@Get('me')
 	async getCurrentUser(@User() user: AuthUserData) {
 		const userId = user.id;
-		const userData = (await this.userService.getUserById(userId))!;
+		const userData = await this.userService.getUserById(userId);
+
+		if (!userData) {
+			throw new ForbiddenException('Not authorized');
+		}
 
 		return UserResponseFullDto.fromUser(userData);
 	}
