@@ -25,6 +25,7 @@ import { UserListModule } from './user-list/user-list.module';
 import { UserValueCategoryModule } from './user-value-category/user-value-category.module';
 import { CategoryModule } from './category/category.module';
 import { UserMsgModule } from './user-msg/user-msg.module';
+import { TablesModule } from './tables/tables.module';
 
 @Module({
 	controllers: [AppController],
@@ -65,7 +66,8 @@ import { UserMsgModule } from './user-msg/user-msg.module';
 		UserListModule,
 		UserValueCategoryModule,
 		CategoryModule,
-		UserMsgModule
+		UserMsgModule,
+		TablesModule
 	]
 })
 export class AppModule {

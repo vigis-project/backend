@@ -18,6 +18,6 @@ export class Status extends Model<Status, StatusCreationAttrs> {
 	@Column({ type: DataType.INTEGER })
 	id: number;
 
-	@Column({ type: DataType.STRING(10), allowNull: false })
+	@Column({ type: DataType.STRING(20), allowNull: false })
 	name: string;
 }

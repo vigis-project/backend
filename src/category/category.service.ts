@@ -15,6 +15,16 @@ export class CategoryService {
 		return await this.categoryRepository.create(dto);
 	}
 
+	async getSelection(page: number, limit: number) {
+		const offset = (page - 1) * limit;
+
+		return await this.categoryRepository.findAll({
+			include: { all: true },
+			limit,
+			offset
+		});
+	}
+
 	async getAll() {
 		return await this.categoryRepository.findAll({
 			include: { all: true }
