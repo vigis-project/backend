@@ -1,6 +1,9 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="120" alt="Nest Logo" /></a>
-</p>
+# Vigis backend
+
+Бэкенд часть проекта Vigis
+
+> [!WARNING]
+> Данный проект разрабатывался в рамках курсовой работы по предмету "Архитектура программного обеспечения". Могут быть ошибки, недоделки и прочие неровности.
 
 ## Run docker-compose
 
@@ -75,3 +78,4 @@ $ pnpm run test:e2e
 # test coverage
 $ pnpm run test:cov
 ```
+
